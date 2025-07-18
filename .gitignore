@@ -1,0 +1,86 @@
+# ====================
+# General
+# ====================
+*.iml
+.gradle
+.kotlin
+.DS_Store
+.idea/
+local.properties
+captures/
+*.log
+*.swp
+*.tmp
+*.bak
+
+# ====================
+# Build Outputs
+# ====================
+**/build/
+**/.gradle/
+**/.idea/
+**/out/
+**/bin/
+**/obj/
+**/generated/
+
+# Optional: allow build inside src if needed
+!src/**/build/
+
+# ====================
+# Compose Multiplatform (includes Android, Desktop, iOS)
+# ====================
+# Android
+androidApp/.cxx/
+androidApp/.externalNativeBuild/
+androidApp/build/
+
+# Desktop
+desktopApp/build/
+desktopApp/out/
+
+# iOS
+iosApp/xcuserdata/
+iosApp/*.xcodeproj/*
+!iosApp/*.xcodeproj/project.pbxproj
+!iosApp/*.xcodeproj/xcshareddata/
+!iosApp/*.xcodeproj/project.xcworkspace/
+!iosApp/*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# macOS / iOS build folders
+iosApp/build/
+macosApp/build/
+xcode/DerivedData/
+*.xcworkspace
+*.xcodeproj
+
+# ====================
+# SQLDelight
+# ====================
+**/build/generated/sqlDelight/
+
+# ====================
+# OS-specific
+# ====================
+Thumbs.db
+ehthumbs.db
+*.class
+*.orig
+
+# ====================
+# Kotlin/Native & Multiplatform
+# ====================
+.kotlinc/
+*.konan/
+*.db-journal
+*.db-wal
+
+# ====================
+# Gradle Wrapper
+# ====================
+gradle/
+.gradle/
+gradlew
+gradlew.bat
+gradle.properties
