@@ -3,21 +3,29 @@ package org.angelhr28.micondominio.model
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
-data class Report @OptIn(ExperimentalUuidApi::class) constructor(
-    val id: String = Uuid.random().toString(),
+data class Report(
+    val id: Long = 0L,
     val title: String,
     val description: String,
-    val timestamp: String = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        .toString(),
     val status: ReportStatus = ReportStatus.PENDING,
+    val createAt: String = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .toString(),
+    val updateAt: String = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .toString(),
     val response: String? = null
 )
 
 
 enum class ReportStatus {
     PENDING,
-    DONE
+    DONE;
+
+    companion object {
+        fun findFromKey(key: String): ReportStatus {
+            return ReportStatus.entries.find { key == it.name } ?: PENDING
+        }
+    }
 }

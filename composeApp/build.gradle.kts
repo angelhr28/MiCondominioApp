@@ -10,6 +10,7 @@ plugins {
 }
 
 sqldelight {
+    linkSqlite = true
     databases {
         create("AppDatabase") {
             packageName.set("org.angelhr28.micondominio.db")
@@ -29,6 +30,7 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
+
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
@@ -57,8 +59,10 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material3)
             implementation(compose.ui)
+            implementation(compose.animation)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.materialIconsExtended)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
@@ -79,6 +83,7 @@ kotlin {
             implementation("io.insert-koin:koin-core")
             implementation("io.insert-koin:koin-compose")
 
+            implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
 //            Por si se jode usar esto.
 //            implementation(libs.voyager.navigator)
 //            implementation(libs.voyager.transitions)

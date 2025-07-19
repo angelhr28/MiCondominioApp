@@ -1,16 +1,9 @@
 package org.angelhr28.micondominio.ui.reports
 
-import org.angelhr28.micondominio.model.ReportStatus
+import org.angelhr28.micondominio.model.Report
 
 sealed interface ReportsIntent {
-    data object SubmitReport : ReportsIntent
-
-    data class UpdateTitle(val title: String) : ReportsIntent
-    data class UpdateDescription(val description: String) : ReportsIntent
-
-    data class PreviewStatus(val status: ReportStatus) : ReportsIntent
-
-    data class EditReport(val id: String) : ReportsIntent
-    data class DeleteReport(val id: String) : ReportsIntent
-    data class ToggleStatus(val id: String) : ReportsIntent
+    data class CreatedReport(val report: Report) : ReportsIntent
+    data class EditReport(val report: Report) : ReportsIntent
+    data class DeleteReport(val id: Long) : ReportsIntent
 }

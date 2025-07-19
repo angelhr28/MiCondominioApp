@@ -45,7 +45,7 @@ fun ReportCard(
             Spacer(Modifier.height(8.dp))
             Row {
                 Text(
-                    text = report.timestamp,
+                    text = report.createAt,
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

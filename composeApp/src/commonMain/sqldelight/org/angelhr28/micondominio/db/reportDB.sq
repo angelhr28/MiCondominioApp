@@ -1,0 +1,28 @@
+CREATE TABLE ReportEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    status TEXT NOT NULL,
+    response TEXT NOT NULL,
+    createAt TEXT NOT NULL,
+    updateAt TEXT NOT NULL
+);
+
+insert:
+INSERT INTO ReportEntity (title, description, status, response, createAt, updateAt)
+VALUES (?,?,?,?,?,?);
+
+update:
+UPDATE ReportEntity
+SET title = ?,
+    description = ?,
+    updateAt = ?
+WHERE id = ?;
+
+selectAll:
+SELECT *
+FROM ReportEntity;
+
+delete:
+DELETE FROM ReportEntity
+WHERE id = ?;

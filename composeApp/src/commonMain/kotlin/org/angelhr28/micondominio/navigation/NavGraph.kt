@@ -50,7 +50,7 @@ fun AppNavGraph() {
         composable<Screen.Payments> { PaymentsScreen() }
         composable<Screen.Reservations> { ReservationsScreen() }
         composable<Screen.Notifications> { NotificationsScreen() }
-        composable<Screen.Reports> { ReportsScreen() }
+        composable<Screen.Reports> { ReportsScreen { navController.popBackStack() } }
         composable<Screen.Regulations> { RegulationsScreen() }
         composable<Screen.Services> { ServicesScreen() }
         composable<Screen.Banners> { BannersScreen() }
