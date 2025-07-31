@@ -1,0 +1,57 @@
+name: 📱 Build & Sign Android APK
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: 🤖 Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 🧰 Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: 🏗️ Build unsigned release APK
+        run: ./gradlew :composeApp:assembleRelease -Dandroid.useAndroidX=true
+
+      - name: 🏷️ Rename unsigned APK with version and date
+        run: |
+          VERSION_NAME=$(grep versionName composeApp/build.gradle.kts | head -1 | awk -F'"' '{print $2}')
+          DATE=$(date +%Y-%m-%d)
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
+          echo "DATE=$DATE" >> $GITHUB_ENV
+          mv composeApp/build/outputs/apk/release/composeApp-release-unsigned.apk MiCondominio-v${VERSION_NAME}-${DATE}-unsigned.apk
+
+      - name: 🔐 Decode and save keystore from secret
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > keystore.jks
+
+      - name: 🔐 Sign APK with keystore
+        run: |
+          $ANDROID_HOME/build-tools/34.0.0/apksigner sign \
+            --ks keystore.jks \
+            --ks-key-alias "micondominiokey" \
+            --ks-pass pass:"${{ secrets.KEYSTORE_PASSWORD }}" \
+            --key-pass pass:"${{ secrets.KEY_PASSWORD }}" \
+            --out MiCondominio-v${{ env.VERSION_NAME }}-${{ env.DATE }}.apk \
+            MiCondominio-v${{ env.VERSION_NAME }}-${{ env.DATE }}-unsigned.apk
+
+      - name: 📤 Upload signed APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MiCondominio-Signed-APK
+          path: MiCondominio-v${{ env.VERSION_NAME }}-${{ env.DATE }}.apk

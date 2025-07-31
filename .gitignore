@@ -1,86 +1,18 @@
-# ====================
-# General
-# ====================
 *.iml
-.gradle
 .kotlin
-.DS_Store
-.idea/
-local.properties
-captures/
-*.log
-*.swp
-*.tmp
-*.bak
-
-# ====================
-# Build Outputs
-# ====================
+.gradle
 **/build/
-**/.gradle/
-**/.idea/
-**/out/
-**/bin/
-**/obj/
-**/generated/
-
-# Optional: allow build inside src if needed
+xcuserdata
 !src/**/build/
-
-# ====================
-# Compose Multiplatform (includes Android, Desktop, iOS)
-# ====================
-# Android
-androidApp/.cxx/
-androidApp/.externalNativeBuild/
-androidApp/build/
-
-# Desktop
-desktopApp/build/
-desktopApp/out/
-
-# iOS
-iosApp/xcuserdata/
-iosApp/*.xcodeproj/*
-!iosApp/*.xcodeproj/project.pbxproj
-!iosApp/*.xcodeproj/xcshareddata/
-!iosApp/*.xcodeproj/project.xcworkspace/
-!iosApp/*.xcworkspace/contents.xcworkspacedata
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
-
-# macOS / iOS build folders
-iosApp/build/
-macosApp/build/
-xcode/DerivedData/
-*.xcworkspace
-*.xcodeproj
-
-# ====================
-# SQLDelight
-# ====================
-**/build/generated/sqlDelight/
-
-# ====================
-# OS-specific
-# ====================
-Thumbs.db
-ehthumbs.db
-*.class
-*.orig
-
-# ====================
-# Kotlin/Native & Multiplatform
-# ====================
-.kotlinc/
-*.konan/
-*.db-journal
-*.db-wal
-
-# ====================
-# Gradle Wrapper
-# ====================
-gradle/
-.gradle/
-gradlew
-gradlew.bat
-gradle.properties

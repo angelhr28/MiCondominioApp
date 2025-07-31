@@ -1,0 +1,39 @@
+name: 🍏 Build iOS Archive
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: ☕ Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: 🛠️ Build shared module (KMM)
+        run: ./gradlew :shared:build
+
+      - name: 🧱 Build iOS App (archive)
+        run: |
+          cd iosApp
+          xcodebuild archive \
+            -scheme iosApp \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/iosApp.xcarchive \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: 📤 Upload iOS Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-archive
+          path: iosApp/build/iosApp.xcarchive
