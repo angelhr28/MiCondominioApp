@@ -1,13 +1,28 @@
 package org.angelhr28.micondominio.shared
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitView
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
@@ -25,21 +40,46 @@ import kotlin.coroutines.resume
 
 @Composable
 actual fun PdfColumn(url: String) {
-    val nsUrl = NSURL(string = url)
-    val document = PDFDocument(uRL = nsUrl)
+    var document by remember { mutableStateOf<PDFDocument?>(null) }
 
-    val view = PDFView().apply {
-        this.document = document
-        this.autoScales = true
-        this.displayMode =
-            1 // Represent Enum entry 1 ( Single Page Continuous ) from PDFDisplayMode
-        this.displayDirection = 0 // Represent Enum entry 1 ( Horizontal ) from PDFDisplayDirection
+    LaunchedEffect(url) {
+        withContext(Dispatchers.Default) {
+            val nsUrl = NSURL(string = url)
+            val pdfDoc = PDFDocument(uRL = nsUrl)
+            document = pdfDoc
+        }
     }
 
-    UIKitView(
-        factory = { view },
-        modifier = Modifier.fillMaxSize().background(Color.White),
-    )
+    if (document != null) {
+        val view = remember(document) {
+            PDFView().apply {
+                this.document = document
+                this.autoScales = true
+                this.displayMode = 1
+                this.displayDirection = 0
+            }
+        }
+
+        UIKitView(
+            factory = { view },
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
+        )
+    } else {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
+                Spacer(modifier = Modifier.height(12.dp))
+                Text("Cargando PDF…")
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalForeignApi::class)

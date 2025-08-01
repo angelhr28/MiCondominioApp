@@ -34,7 +34,6 @@ class ReportsViewModel(
     init {
         viewModelScope.launch {
             getAllReportsUseCase.invoke().collect { reports ->
-                println("✅ Cambio detectado: ${reports.size}")
                 _uiState.update { it.copy(reports = reports) }
             }
         }
