@@ -7,13 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.angelhr28.micondominio.db.AppDatabase
 import org.angelhr28.micondominio.domain.repository.ReportsRepository
 import org.angelhr28.micondominio.model.Report
 import org.angelhr28.micondominio.model.ReportStatus
+import kotlin.time.ExperimentalTime
 
 class ReportsRepositoryImpl(
     appDatabase: AppDatabase,
@@ -54,6 +54,7 @@ class ReportsRepositoryImpl(
         }
     }
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun editReport(report: Report) {
 
         queries.transaction {
@@ -61,7 +62,7 @@ class ReportsRepositoryImpl(
                 id = report.id,
                 title = report.title,
                 description = report.description,
-                updateAt = Clock.System.now()
+                updateAt = kotlin.time.Clock.System.now()
                     .toLocalDateTime(TimeZone.currentSystemDefault())
                     .toString()
             )
