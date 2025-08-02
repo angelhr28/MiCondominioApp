@@ -4,9 +4,17 @@ on:
   push:
     branches:
       - main
+      - feature/**
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+      - feature/**
+  workflow_dispatch:
 
 jobs:
   build-android:
+    if: github.event_name != 'pull_request' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +29,10 @@ jobs:
 
       - name: 🤖 Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            build-tools;34.0.0
+            platforms;android-34
 
       - name: 💾 Cache Gradle
         uses: actions/cache@v4
@@ -28,25 +40,15 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/*.kts', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
           restore-keys: |
             gradle-${{ runner.os }}-
 
-      - name: 💾 Cache Kotlin Native (optional, in case of KMP usage)
-        uses: actions/cache@v4
-        with:
-          path: ~/.konan
-          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: konan-${{ runner.os }}-
-
-      - name: 🧰 Grant execute permission to Gradle wrapper
-        run: chmod +x ./gradlew
-
-      - name: 🧼 Clean build (optional, for fresh builds)
+      - name: 🧼 Clean build
         run: ./gradlew clean
 
       - name: 🏗️ Build unsigned release APK
-        run: ./gradlew --no-daemon --stacktrace :composeApp:assembleRelease -Dandroid.useAndroidX=true
+        run: ./gradlew --no-daemon --stacktrace --build-cache :composeApp:assembleRelease
 
       - name: 🏷️ Rename unsigned APK with version and date
         run: |
