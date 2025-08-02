@@ -3,13 +3,13 @@ name: 🍏 Build iOS Archive
 on:
   push:
     branches:
-      - main
-      - feature/**
-  pull_request:
-    types: [closed]
-    branches:
-      - main
-      - feature/**
+      - main2
+#      - feature/**
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - main2
+#      - feature/**
   workflow_dispatch:
 
 jobs:
