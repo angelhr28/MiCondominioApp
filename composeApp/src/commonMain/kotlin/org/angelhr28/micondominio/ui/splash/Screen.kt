@@ -1,14 +1,30 @@
 package org.angelhr28.micondominio.ui.splash
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 
+@ExperimentalMaterial3Api
 @Composable
-fun SplashScreen() {
-    // TODO: Implement UI
-    // This is a placeholder for the Splash screen UI.
-    // You can add your composables here to build the splash screen.
-    // For example, you might want to display a logo, loading indicator, or welcome message.
-    // Example:
-     Text("Splash Screen")
+fun SplashScreen(onBackPress: () -> Unit = {}) {
+     Scaffold(
+          topBar = {
+               TopAppBar(
+                    title = { Text("Mi Splash") },
+                    navigationIcon = {
+                         IconButton(onClick = onBackPress) {
+                              Icon(Icons.Default.ArrowBackIosNew, contentDescription = "Volver")
+                         }
+                    }
+               )
+          }
+     ) { innerPadding ->
+
+     }
 }

@@ -32,7 +32,7 @@ import org.angelhr28.micondominio.shared.downloadPdfFromUrl
 import org.angelhr28.micondominio.shared.openPdf
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
 fun RegulationsScreen(onBackPress: () -> Unit = {}) {
     val scope = rememberCoroutineScope()
@@ -100,6 +100,7 @@ fun DownloadPdfFab(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun PreviewRegulationsScreen() {

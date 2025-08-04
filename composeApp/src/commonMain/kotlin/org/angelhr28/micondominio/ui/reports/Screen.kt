@@ -40,6 +40,7 @@ import org.angelhr28.micondominio.ui.reports.component.GenericBottomSheet
 import org.angelhr28.micondominio.ui.reports.component.ReportCard
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@ExperimentalMaterial3Api
 @Composable
 fun ReportsScreen(onbackPress: () -> Unit) {
     val viewModel = remember { ReportsViewModelProvider().getViewModel() }
@@ -84,7 +85,7 @@ fun ReportsScreen(onbackPress: () -> Unit) {
 }
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Composable
 fun ReportsStateless(
     state: ReportsUiState,

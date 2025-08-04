@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,6 +25,7 @@ import org.angelhr28.micondominio.ui.services.ServicesScreen
 import org.angelhr28.micondominio.ui.splash.SplashScreen
 
 
+@ExperimentalMaterial3Api
 @Composable
 fun AppNavGraph() {
 
@@ -38,21 +40,21 @@ fun AppNavGraph() {
         popExitTransition = { fadeOut(animationSpec = tween(300)) }
     ) {
 
-        composable<Screen.Splash> { SplashScreen() }
+        composable<Screen.Splash> { SplashScreen { navController.popBackStack() } }
         composable<Screen.Login>(
             enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
             exitTransition = { slideOutHorizontally(targetOffsetX = { it }) }
         ) { LoginScreen(navigator = navController) }
 
-        composable<Screen.ForgotPassword> { ForgotPasswordScreen() }
+        composable<Screen.ForgotPassword> { ForgotPasswordScreen { navController.popBackStack() } }
         composable<Screen.Home> { HomeScreen(navigator = navController) }
-        composable<Screen.Profile> { ProfileScreen() }
-        composable<Screen.Payments> { PaymentsScreen() }
-        composable<Screen.Reservations> { ReservationsScreen() }
-        composable<Screen.Notifications> { NotificationsScreen() }
+        composable<Screen.Profile> { ProfileScreen { navController.popBackStack() } }
+        composable<Screen.Payments> { PaymentsScreen { navController.popBackStack() } }
+        composable<Screen.Reservations> { ReservationsScreen { navController.popBackStack() } }
+        composable<Screen.Notifications> { NotificationsScreen { navController.popBackStack() } }
         composable<Screen.Reports> { ReportsScreen { navController.popBackStack() } }
         composable<Screen.Regulations> { RegulationsScreen { navController.popBackStack() } }
-        composable<Screen.Services> { ServicesScreen() }
-        composable<Screen.Banners> { BannersScreen() }
+        composable<Screen.Services> { ServicesScreen { navController.popBackStack() } }
+        composable<Screen.Banners> { BannersScreen { navController.popBackStack() } }
     }
 }
