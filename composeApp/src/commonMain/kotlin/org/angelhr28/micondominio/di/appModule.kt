@@ -14,7 +14,7 @@ import org.angelhr28.micondominio.domain.usecase.EditReportUseCase
 import org.angelhr28.micondominio.domain.usecase.EditReportUseCaseImpl
 import org.angelhr28.micondominio.domain.usecase.GetAllReportsUseCase
 import org.angelhr28.micondominio.domain.usecase.GetAllReportsUseCaseImpl
-import org.angelhr28.micondominio.ui.reports.ReportsViewModel
+import org.angelhr28.micondominio.ui.feature.reports.ReportsViewModel
 import org.koin.dsl.module
 
 fun appModule(appDatabase: AppDatabase) = module {

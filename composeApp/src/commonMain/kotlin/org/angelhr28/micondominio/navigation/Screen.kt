@@ -1,42 +1,22 @@
 package org.angelhr28.micondominio.navigation
 
-import kotlinx.serialization.Serializable
 
+object Routes {
+    const val Splash = "splash"
+    const val Login = "login"
+    const val ForgotPassword = "forgot_password"
+    const val Home = "home"
+    const val Payments = "payments"
+    const val Reservations = "reservations"
+    const val Notifications = "notifications"
+    const val Reports = "reports"
+    const val Regulations = "regulations"
+    const val Banners = "banners"
+    const val Services = "services"
 
-sealed class Screen {
-    @Serializable
-    object Splash
-
-    @Serializable
-    object Login
-
-    @Serializable
-    object ForgotPassword
-
-    @Serializable
-    object Home
-
-    @Serializable
-    object Profile
-
-    @Serializable
-    object Payments
-
-    @Serializable
-    object Reservations
-
-    @Serializable
-    object Notifications
-
-    @Serializable
-    object Reports
-
-    @Serializable
-    object Regulations
-
-    @Serializable
-    object Banners
-
-    @Serializable
-    object Services
+    object Profile {
+        const val Main = "profile/main"
+        const val Edit = "profile/edit"
+        const val Settings = "profile/settings"
+    }
 }

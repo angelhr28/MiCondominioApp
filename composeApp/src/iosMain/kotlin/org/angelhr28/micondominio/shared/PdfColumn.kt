@@ -69,8 +69,7 @@ actual fun PdfColumn(url: String) {
     } else {
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White),
+                .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
